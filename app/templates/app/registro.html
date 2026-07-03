@@ -12,7 +12,7 @@
 
     .auth-card {
         width: 100%;
-        max-width: 520px;
+        max-width: 540px;
         background: white;
         border-radius: 30px;
         padding: 45px;
@@ -108,10 +108,10 @@
 
 <div class="auth-wrapper">
     <div class="auth-card">
-        <div class="auth-icon">🐱</div>
+        <div class="auth-icon">🎀</div>
 
-        <h1>Iniciar sesión</h1>
-        <p>Ingresa al panel de administración de MichiStyle.</p>
+        <h1>Crear cuenta</h1>
+        <p>Regístrate para administrar pedidos personalizados de MichiStyle.</p>
 
         {% if messages %}
             {% for message in messages %}
@@ -123,17 +123,20 @@
             {% csrf_token %}
 
             <label>Usuario</label>
-            <input type="text" name="username" placeholder="Ingresa tu usuario" required>
+            <input type="text" name="username" placeholder="Crea un nombre de usuario" required>
 
             <label>Contraseña</label>
-            <input type="password" name="password" placeholder="Ingresa tu contraseña" required>
+            <input type="password" name="password1" placeholder="Crea una contraseña" required>
 
-            <button type="submit">Entrar al sistema</button>
+            <label>Repetir contraseña</label>
+            <input type="password" name="password2" placeholder="Repite la contraseña" required>
+
+            <button type="submit">Crear cuenta</button>
         </form>
 
         <div class="auth-link">
-            ¿No tienes cuenta?
-            <a href="{% url 'registro' %}">Crear cuenta</a>
+            ¿Ya tienes cuenta?
+            <a href="{% url 'login' %}">Iniciar sesión</a>
         </div>
     </div>
 </div>

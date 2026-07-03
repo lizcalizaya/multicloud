@@ -1,21 +1,236 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h1>Aplicación Web MultiCloud</h1>
 
-<div class="card">
-    <p>
-        Esta aplicación demuestra una arquitectura MultiCloud con AWS, OCI y Azure.
-    </p>
+<style>
+    .hero-home {
+        background: linear-gradient(135deg, #ffffff, #fff1f7, #fce7f3);
+        border-radius: 30px;
+        padding: 55px;
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 35px;
+        align-items: center;
+        box-shadow: 0 18px 40px rgba(190, 24, 93, 0.12);
+        border: 1px solid #fbcfe8;
+    }
 
-    <ul>
-        <li><strong>AWS EC2/VPC:</strong> alojamiento de la aplicación web.</li>
-        <li><strong>OCI Autonomous Database:</strong> almacenamiento de datos estructurados.</li>
-        <li><strong>Azure Blob Storage:</strong> almacenamiento de archivos o multimedia.</li>
-        <li><strong>GitHub Actions:</strong> despliegue automatizado CI/CD.</li>
-        <li><strong>OWASP:</strong> controles de seguridad en la capa de aplicación.</li>
-    </ul>
+    .hero-home h1 {
+        font-size: 50px;
+        color: #be185d;
+        margin: 0 0 18px 0;
+        line-height: 1.1;
+    }
 
-    <a class="btn" href="/login/">Entrar al sistema</a>
+    .hero-home p {
+        color: #4b5563;
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary {
+        background: #ec4899;
+        color: white;
+        padding: 14px 24px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 700;
+        display: inline-block;
+    }
+
+    .btn-secondary {
+        background: white;
+        color: #be185d;
+        padding: 12px 22px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 700;
+        border: 2px solid #f9a8d4;
+        display: inline-block;
+    }
+
+    .hero-image {
+        height: 310px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, #fce7f3, #ffffff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 115px;
+        box-shadow: inset 0 0 30px rgba(236, 72, 153, 0.12);
+    }
+
+    .section-title {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+        color: #111827;
+        margin: 0;
+    }
+
+    .section-title p {
+        color: #6b7280;
+        margin-top: 8px;
+    }
+
+    .home-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .home-card {
+        background: white;
+        border-radius: 24px;
+        padding: 28px;
+        border: 1px solid #fbcfe8;
+        box-shadow: 0 10px 26px rgba(190, 24, 93, 0.08);
+    }
+
+    .home-card .emoji {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        background: #fce7f3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        margin-bottom: 18px;
+    }
+
+    .home-card h3 {
+        margin: 0 0 10px 0;
+        color: #111827;
+        font-size: 22px;
+    }
+
+    .home-card p {
+        color: #6b7280;
+        line-height: 1.6;
+        font-size: 15px;
+    }
+
+    .banner {
+        margin-top: 35px;
+        background: #be185d;
+        color: white;
+        border-radius: 26px;
+        padding: 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .banner h2 {
+        margin: 0 0 8px 0;
+        font-size: 30px;
+    }
+
+    .banner p {
+        margin: 0;
+        color: #ffe4f1;
+    }
+
+    .banner a {
+        background: white;
+        color: #be185d;
+        padding: 13px 22px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 900px) {
+        .hero-home {
+            grid-template-columns: 1fr;
+            padding: 35px;
+        }
+
+        .home-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .banner {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+
+<section class="hero-home">
+    <div>
+        <h1>Diseños únicos para gatos con mucha personalidad</h1>
+        <p>
+            MichiStyle permite registrar pedidos personalizados para gatos,
+            organizar imágenes de referencia y guardar los estilos solicitados
+            por cada cliente de forma simple y ordenada.
+        </p>
+
+        <div class="hero-buttons">
+            <a class="btn-primary" href="{% url 'login' %}">Entrar al sistema</a>
+            <a class="btn-secondary" href="{% url 'archivos' %}">Ver pedidos</a>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        🐱🎀
+    </div>
+</section>
+
+<div class="section-title">
+    <h2>¿Qué puedes gestionar?</h2>
+    <p>Un sistema pensado para administrar pedidos de productos personalizados.</p>
 </div>
+
+<section class="home-grid">
+    <div class="home-card">
+        <div class="emoji">👗</div>
+        <h3>Ropa para gatos</h3>
+        <p>
+            Registra pedidos de ropa personalizada según talla, color,
+            estilo y personalidad del gato.
+        </p>
+    </div>
+
+    <div class="home-card">
+        <div class="emoji">🧶</div>
+        <h3>Accesorios</h3>
+        <p>
+            Organiza solicitudes de collares, arneses, moños,
+            mantitas u otros artículos especiales.
+        </p>
+    </div>
+
+    <div class="home-card">
+        <div class="emoji">🖼️</div>
+        <h3>Imágenes de referencia</h3>
+        <p>
+            Guarda imágenes o archivos enviados por los clientes
+            para orientar mejor el diseño del producto.
+        </p>
+    </div>
+</section>
+
+<div class="banner">
+    <div>
+        <h2>Administra tus pedidos en un solo lugar</h2>
+        <p>Registra, revisa y organiza diseños personalizados para cada cliente.</p>
+    </div>
+
+    <a href="{% url 'login' %}">Comenzar</a>
+</div>
+
 {% endblock %}

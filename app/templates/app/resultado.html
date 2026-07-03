@@ -1,13 +1,143 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h1>Resultado de prueba</h1>
 
-<div class="card">
-    <h3>{{ servicio }}</h3>
-    <p><strong>Estado:</strong> <span class="warning">{{ estado }}</span></p>
-    <p>{{ mensaje }}</p>
+<style>
+    .status-hero {
+        background: white;
+        border-radius: 28px;
+        padding: 45px;
+        border: 1px solid #fbcfe8;
+        box-shadow: 0 14px 35px rgba(190, 24, 93, 0.10);
+        margin-bottom: 28px;
+    }
 
-    <a class="btn" href="/panel/">Volver al panel</a>
+    .status-title {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 15px;
+    }
+
+    .status-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 22px;
+        background: #fce7f3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 38px;
+    }
+
+    .status-title h1 {
+        margin: 0;
+        color: #be185d;
+        font-size: 38px;
+    }
+
+    .status-hero p {
+        color: #4b5563;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .status-box {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+        padding: 18px;
+        border-radius: 16px;
+        font-weight: bold;
+        margin-top: 25px;
+    }
+
+    .status-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .mini-card {
+        background: white;
+        border-radius: 24px;
+        padding: 28px;
+        border: 1px solid #fbcfe8;
+        box-shadow: 0 10px 28px rgba(190, 24, 93, 0.08);
+    }
+
+    .mini-card h3 {
+        margin-top: 0;
+        color: #111827;
+        font-size: 22px;
+    }
+
+    .mini-card p {
+        color: #6b7280;
+        line-height: 1.5;
+    }
+
+    .badge {
+        display: inline-block;
+        background: #fce7f3;
+        color: #be185d;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .actions {
+        margin-top: 28px;
+    }
+</style>
+
+<div class="topbar">
+    <div>
+        <h1>Estado del sistema</h1>
+        <p>Revisión general del funcionamiento de MichiStyle.</p>
+    </div>
+    <a class="logout" href="{% url 'panel' %}">Volver al panel</a>
 </div>
+
+<section class="status-hero">
+    <div class="status-title">
+        <div class="status-icon">✅</div>
+        <div>
+            <h1>Sistema disponible</h1>
+            <p>La plataforma se encuentra operativa para gestionar pedidos personalizados.</p>
+        </div>
+    </div>
+
+    <div class="status-box">
+        {{ mensaje }}
+    </div>
+</section>
+
+<section class="status-grid">
+    <div class="mini-card">
+        <h3>Aplicación web</h3>
+        <p>El sistema de MichiStyle se encuentra disponible para iniciar sesión, registrar pedidos y revisar diseños.</p>
+        <span class="badge">En línea</span>
+    </div>
+
+    <div class="mini-card">
+        <h3>Base de datos</h3>
+        <p>La información del sistema se encuentra conectada a la base de datos utilizada por la aplicación.</p>
+        <span class="badge">{{ estado }}</span>
+    </div>
+
+    <div class="mini-card">
+        <h3>Imágenes de referencia</h3>
+        <p>El sistema permite registrar archivos o imágenes asociadas a los pedidos personalizados.</p>
+        <span class="badge">Disponible</span>
+    </div>
+</section>
+
+<div class="actions">
+    <a class="btn" href="{% url 'archivos' %}">Ver pedidos</a>
+    <a class="btn btn-outline" href="{% url 'panel' %}">Regresar al panel</a>
+</div>
+
 {% endblock %}

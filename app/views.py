@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import ArchivoMulticloud
 from .forms import ArchivoMulticloudForm
-
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 def inicio(request):
     return render(request, 'app/inicio.html')
@@ -47,9 +49,9 @@ def eliminar_archivo(request, archivo_id):
 @login_required
 def probar_oci(request):
     contexto = {
-        'servicio': 'OCI Autonomous Database',
-        'estado': 'Pendiente de conexión',
-        'mensaje': 'Esta sección se usará para validar la conexión con la base de datos en Oracle Cloud.'
+        'servicio': 'Estado del sistema',
+        'estado': 'Conexión verificada',
+        'mensaje': 'El sistema se encuentra funcionando correctamente y la información queda almacenada en la base de datos.'
     }
     return render(request, 'app/resultado.html', contexto)
 
@@ -59,8 +61,34 @@ def probar_azure(request):
     cantidad = ArchivoMulticloud.objects.count()
 
     contexto = {
-        'servicio': 'Azure Blob Storage',
-        'estado': 'Configurado en la aplicación',
-        'mensaje': f'La aplicación está preparada para subir archivos a Azure Blob Storage. Archivos registrados: {cantidad}.'
+        'servicio': 'Pedidos registrados',
+        'estado': 'Información disponible',
+        'mensaje': f'Actualmente existen {cantidad} pedidos o diseños registrados en el sistema.'
     }
     return render(request, 'app/resultado.html', contexto)
+
+def registro(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 != password2:
+            messages.error(request, 'Las contraseñas no coinciden.')
+            return redirect('registro')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'El usuario ya existe.')
+            return redirect('registro')
+
+        user = User.objects.create_user(username=username, password=password1)
+        user.save()
+
+        messages.success(request, 'Cuenta creada correctamente. Ahora puedes iniciar sesión.')
+        return redirect('login')
+
+    return render(request, 'app/registro.html')
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('inicio')

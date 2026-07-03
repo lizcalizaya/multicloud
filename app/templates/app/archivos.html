@@ -1,59 +1,76 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h1>Archivos en Azure Blob Storage</h1>
+
+<div class="topbar">
+    <div>
+        <h1>Pedidos y diseños</h1>
+        <p>Registro de artículos personalizados para gatos</p>
+    </div>
+    <a class="logout" href="{% url 'panel' %}">Volver al panel</a>
+</div>
 
 <div class="card">
-    <h3>Subir nuevo archivo</h3>
+    <h2 style="color: #be185d; font-size: 30px; margin-top: 0;">Nuevo pedido</h2>
+    <p style="color: #6b7280; margin-bottom: 25px;">
+        Completa la información del pedido y sube una imagen de referencia del artículo solicitado.
+    </p>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <label>Título</label>
+        <label>Nombre del artículo o pedido</label>
         {{ form.titulo }}
 
-        <label>Descripción</label>
+        <label>Descripción del estilo solicitado</label>
         {{ form.descripcion }}
 
-        <label>Archivo</label>
+        <label>Imagen o archivo de referencia</label>
         {{ form.archivo }}
 
         {% if form.errors %}
-            <div style="color: red;">
+            <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
                 {{ form.errors }}
             </div>
         {% endif %}
 
-        <button type="submit">Subir archivo a Azure</button>
+        <button class="btn" type="submit">Guardar pedido</button>
     </form>
 </div>
 
 <div class="card">
-    <h3>Listado de archivos</h3>
+    <h2 style="color: #be185d; font-size: 30px; margin-top: 0;">Diseños registrados</h2>
+    <p style="color: #6b7280; margin-bottom: 25px;">
+        Listado de pedidos e imágenes almacenadas en el sistema.
+    </p>
 
     {% if archivos %}
-        {% for item in archivos %}
-            <div class="card">
-                <h4>{{ item.titulo }}</h4>
-                <p>{{ item.descripcion }}</p>
-                <p><strong>Fecha:</strong> {{ item.fecha_subida }}</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+            {% for item in archivos %}
+                <div style="border: 1px solid #fbcfe8; border-radius: 20px; padding: 20px; background: #fff7fb;">
+                    <div style="font-size: 36px; margin-bottom: 10px;">🐾</div>
 
-                <a class="btn" href="{{ item.archivo.url }}" target="_blank">
-                    Descargar / Ver archivo
-                </a>
+                    <h3 style="margin: 0 0 8px 0; color: #111827;">
+                        {{ item.titulo }}
+                    </h3>
 
-                <form method="post" action="{% url 'eliminar_archivo' item.id %}">
-                    {% csrf_token %}
-                    <button type="submit" style="background:#dc2626;">
-                        Eliminar archivo
-                    </button>
-                </form>
-            </div>
-        {% endfor %}
+                    <p style="color: #6b7280; line-height: 1.5;">
+                        {{ item.descripcion }}
+                    </p>
+
+                    {% if item.archivo %}
+                        <a class="btn btn-outline" href="{{ item.archivo.url }}" target="_blank">
+                            Ver imagen
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>No hay archivos subidos todavía.</p>
+        <div style="background: #fff1f7; border: 1px solid #fbcfe8; color: #6b7280; padding: 22px; border-radius: 18px;">
+            Aún no hay pedidos registrados.
+        </div>
     {% endif %}
 </div>
 
-<a class="btn" href="/panel/">Volver al panel</a>
 {% endblock %}
