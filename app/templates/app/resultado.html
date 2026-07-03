@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Resultado de prueba</h1>
+
+<div class="card">
+    <h3>{{ servicio }}</h3>
+    <p><strong>Estado:</strong> <span class="warning">{{ estado }}</span></p>
+    <p>{{ mensaje }}</p>
+
+    <a class="btn" href="/panel/">Volver al panel</a>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Panel Principal</h1>
+
+<div class="card">
+    <h3>Estado de la arquitectura</h3>
+    <p>Desde este panel se validan los componentes solicitados en la evaluación.</p>
+</div>
+
+<div class="card">
+    <h3>Gestión de archivos</h3>
+    <p>Esta sección permite subir, listar, descargar y eliminar archivos almacenados en Azure Blob Storage.</p>
+    <a class="btn" href="/archivos/">Administrar archivos Azure</a>
+</div>
+
+<div class="card">
+    <h3>Pruebas de conexión</h3>
+    <a class="btn" href="/probar-oci/">Probar conexión OCI</a>
+    <br>
+    <a class="btn" href="/probar-azure/">Probar conexión Azure Blob</a>
+</div>
+
+<div class="card">
+    <h3>Controles OWASP implementados</h3>
+    <ul>
+        <li>Protección CSRF en formularios.</li>
+        <li>Autenticación mediante login y logout.</li>
+        <li>Manejo seguro de sesiones.</li>
+        <li>Cabeceras de seguridad configuradas en Django.</li>
+        <li>Restricción de acceso mediante login_required.</li>
+        <li>Validación de entradas en formularios.</li>
+    </ul>
+</div>
+{% endblock %}

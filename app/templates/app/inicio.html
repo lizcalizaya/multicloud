@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Aplicación Web MultiCloud</h1>
+
+<div class="card">
+    <p>
+        Esta aplicación demuestra una arquitectura MultiCloud con AWS, OCI y Azure.
+    </p>
+
+    <ul>
+        <li><strong>AWS EC2/VPC:</strong> alojamiento de la aplicación web.</li>
+        <li><strong>OCI Autonomous Database:</strong> almacenamiento de datos estructurados.</li>
+        <li><strong>Azure Blob Storage:</strong> almacenamiento de archivos o multimedia.</li>
+        <li><strong>GitHub Actions:</strong> despliegue automatizado CI/CD.</li>
+        <li><strong>OWASP:</strong> controles de seguridad en la capa de aplicación.</li>
+    </ul>
+
+    <a class="btn" href="/login/">Entrar al sistema</a>
+</div>
+{% endblock %}

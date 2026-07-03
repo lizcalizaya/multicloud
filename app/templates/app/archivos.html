@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Archivos en Azure Blob Storage</h1>
+
+<div class="card">
+    <h3>Subir nuevo archivo</h3>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Título</label>
+        {{ form.titulo }}
+
+        <label>Descripción</label>
+        {{ form.descripcion }}
+
+        <label>Archivo</label>
+        {{ form.archivo }}
+
+        {% if form.errors %}
+            <div style="color: red;">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <button type="submit">Subir archivo a Azure</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Listado de archivos</h3>
+
+    {% if archivos %}
+        {% for item in archivos %}
+            <div class="card">
+                <h4>{{ item.titulo }}</h4>
+                <p>{{ item.descripcion }}</p>
+                <p><strong>Fecha:</strong> {{ item.fecha_subida }}</p>
+
+                <a class="btn" href="{{ item.archivo.url }}" target="_blank">
+                    Descargar / Ver archivo
+                </a>
+
+                <form method="post" action="{% url 'eliminar_archivo' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" style="background:#dc2626;">
+                        Eliminar archivo
+                    </button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay archivos subidos todavía.</p>
+    {% endif %}
+</div>
+
+<a class="btn" href="/panel/">Volver al panel</a>
+{% endblock %}
